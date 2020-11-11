@@ -1,7 +1,6 @@
 // const today = moment().format('dddd MMMM Do YYYY');
 // $(".today").text(today);
 // currentDay display
-console.log("Working")
 var currentDay = document.querySelector("#currentDay");
 var m = moment();
 var today = m.format("dddd, MMMM Do YYYY").toString();
@@ -30,17 +29,10 @@ function html() {
     d.setAttribute("class", "col-2");
     var e = document.createElement("button");
     e.setAttribute("class", `saveBtn${time[i]}`);
-    e.append(<i class="fas fa-save"></i>);
-    // var f = document.createElement("img");
-    // f.setAttribute("src", "img/Locked.svg.png");
-    // f.setAttribute("alt", "");
-    // f.setAttribute(
-    //   "style",
-    //   "width:100%;height:50px; padding: 0px; margin: 0px"
-    // );
+    var icon = document.createElement("i");
+    icon.setAttribute("class", "fas fa-save fa-lg w-auto")
+    e.append(icon);
 
-    //append to the container
-    e.append(f);
     d.append(e);
     a.append(b);
     a.append(c);
@@ -88,8 +80,11 @@ function calendar() {
       x.style.backgroundColor = "silver";
       col.append(x);
     }
+// console.log(timeat); 
+console.log(m.format("H [AM]" && "H [PM]"));
   }
 }
+
 
 //get from store
 function getFromLocalStorage() {
@@ -122,3 +117,4 @@ function setToLocalStorage() {
     });
   }
 }
+// ADD JSON STRINGIFY and PARSE
