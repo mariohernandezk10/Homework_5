@@ -3,71 +3,35 @@
 // currentDay display
 var currentDay = document.querySelector("#currentDay");
 var m = moment();
-var today = m.format("dddd, MMMM Do YYYY").toString();
+var today = m.format("dddd, MMMM Do YYYY");
 currentDay.append(today);
+// in line 6 i need to add h:mm:ss a using the set interval
 
-var time = [9, 10, 11, 12, 1, 2, 3, 4, 5];
+// var time = [9, 10, 11, 12, 1, 2, 3, 4, 5];
+var time = [9, 10, 11, 12, 13, 14, 15, 16, 17];
 var container = document.querySelector(".container");
 
-function html() {
-  for (var i = 0; i < time.length; i++) {
-    var a = document.createElement("div");
-    a.setAttribute("class", "row");
-
-    // div time
-    var b = document.createElement("div");
-    b.setAttribute("id", `time${time[i]}`);
-    b.setAttribute("class", "col-2");
-
-    //div schedule value
-    var c = document.createElement("div");
-    c.setAttribute("id", `col${time[i]}`);
-    c.setAttribute("class", "col-8");
-
-    //div button
-    var d = document.createElement("div");
-    d.setAttribute("class", "col-2");
-    var e = document.createElement("button");
-    e.setAttribute("class", `saveBtn${time[i]}`);
-    var icon = document.createElement("i");
-    icon.setAttribute("class", "fas fa-save fa-lg w-auto")
-    e.append(icon);
-
-    d.append(e);
-    a.append(b);
-    a.append(c);
-    a.append(d);
-    container.append(a);
-  }
-  calendar();
-  getFromLocalStorage();
-  setToLocalStorage();
-}
-html();
 
 //calendar function
 function calendar() {
   for (let c = 0; c < time.length; c++) {
     let timeX = document.querySelector(`#time${time[c]}`);
     let period = function () {
-      if (time[c] < 5 || time[c] == 12) {
+      if (time[c] >= 12) {
         return "[PM]";
       } else {
         return "[AM]";
       }
     };
     let timeat = m.format(`${time[c]} ${period()}`).toString();
+    console.log(timeat);
     timeX.append(timeat);
 
     var col = document.querySelector(`#col${time[c]}`);
     let x = document.createElement("INPUT");
     x.setAttribute("type", "text");
     x.setAttribute("class", `input${time[c]}`);
-    if (timeat == m.format("H [AM]").toString()) {
-      x.setAttribute("placeholder", "Current time");
-      x.style.backgroundColor = "red";
-      col.append(x);
-    } else if (m.format("H") < time[c]) {
+    if (m.format("H") < time[c]) {
       x.setAttribute("placeholder", "Coming time");
       x.style.backgroundColor = "green";
       col.append(x);
@@ -75,13 +39,15 @@ function calendar() {
       x.setAttribute("placeholder", "Coming time");
       x.style.backgroundColor = "green";
       col.append(x);
-    } else {
+    } else if (timeat === m.format("H [PM]").toString()) {
+      x.setAttribute("placeholder", "Current time");
+      x.style.backgroundColor = "red";
+      col.append(x);
+    } else  {
       x.setAttribute("placeholder", "Passed time");
       x.style.backgroundColor = "silver";
       col.append(x);
     }
-// console.log(timeat); 
-console.log(m.format("H [AM]" && "H [PM]"));
   }
 }
 
@@ -117,4 +83,4 @@ function setToLocalStorage() {
     });
   }
 }
-// ADD JSON STRINGIFY and PARSE
+// can I use foreach? or can I use break and continue.
